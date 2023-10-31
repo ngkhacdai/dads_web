@@ -1,0 +1,68 @@
+.title {
+    font-weight: 400;
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.table-account {
+    width: 1165px;
+    border: 1px solid #e0e0e0e0;
+    padding: 10px 0px 0px 30px;
+    background-color: #f0f0f0f0;
+    font-weight: 500;
+
+}
+
+.collumn {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ccc;
+}
+
+/* CSS cho nút trang hoạt động (trang hiện tại) */
+button.active {
+    background-color: #555;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+/* CSS cho "..." */
+span {
+    font-weight: bold;
+    /* Kích thước và kiểu chữ in đậm */
+    margin: 0 10px;
+    /* Khoảng cách giữa các "..." và số trang */
+}
+
+button.page-number {
+    margin: 2px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+}

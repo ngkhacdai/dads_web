@@ -1,0 +1,118 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination-btn {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: #ccc;
+}
+
+.pagination-btn.active {
+    background-color: #555;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+
+.pagination-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+table {
+    width: 1165px;
+    border-collapse: collapse;
+    border: 1px solid #e0e0e0e0;
+    padding: 10px 0px 0px 30px;
+    background-color: #f0f0f0f0;
+    font-weight: 500;
+}
+
+.collumn {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+span {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+button.page-number {
+    margin: 2px;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    /* Màu nền cho nút "Sửa" */
+    color: #fff;
+    /* Màu văn bản cho nút "Sửa" */
+    padding: 5px 10px;
+    /* Kích thước và khoảng cách nút "Sửa" */
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    /* Màu nền cho nút "Xóa" */
+    color: #fff;
+    /* Màu văn bản cho nút "Xóa" */
+    padding: 5px 10px;
+    /* Kích thước và khoảng cách nút "Xóa" */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+    /* Màu nền khi hover */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    /* Màu nền khi hover */
+}
+
+/* style product */
+.image_product {
+    width: 150px;
+    height: 100px;
+}
+
+.name_product {
+    width: 200px;
+}
+
+.des_product {
+    width: 250px;
+}
+
+.price_product {
+    width: 100px;
+}
+
+.stockQuantity_product {
+    width: 150px;
+}
+
+.category_product {
+    width: 180px;
+}

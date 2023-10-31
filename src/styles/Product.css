@@ -1,0 +1,26 @@
+.title {
+    font-weight: 400;
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.btn_addproduct {
+    background-color: yellowgreen;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btnadd_product {
+    margin-top: 10px;
+    background-color: aqua;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btnhuyadd_product {
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+}

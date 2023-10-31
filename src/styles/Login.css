@@ -1,0 +1,128 @@
+.container-web {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../assets/backgound.jpg');
+}
+
+.tt {
+    margin-top: 20px;
+}
+
+.logo {
+    width: 180px;
+    height: 150px;
+}
+
+.customform {
+    text-align: center;
+    width: 400px;
+    height: 400px;
+    background-color: bisque;
+    border-radius: 10px;
+}
+
+.input-wrapper {
+    position: relative;
+    line-height: 14px;
+    margin-top: 20px;
+    width: 380px;
+    display: inline-block;
+}
+
+label {
+    color: #bbb;
+    font-size: 11px;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    left: 30px;
+    top: 14px;
+    padding: 0 2px;
+    pointer-events: none;
+    background: white;
+    transition: transform 100ms ease;
+    transform: translateY(-20px);
+}
+
+.ip_login {
+    font-size: 13px;
+    color: #555;
+    outline: none;
+    width: 350px;
+    height: 20px;
+    border: 1px solid #bbb;
+    padding: 10px 20px;
+    border-radius: 20px;
+    position: relative;
+    height: 40px;
+
+    &:invalid+label {
+        transform: translateY(0)
+    }
+
+    &:focus {
+        border-color: #2b96f1;
+
+        &+label {
+            color: #2b96f1;
+            transform: translateY(-20px)
+        }
+    }
+
+}
+
+.button-71 {
+    background-color: #0078d0;
+    border: 0;
+    border-radius: 56px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui, -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 0;
+    padding: 16px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 20px;
+    width: 340px;
+    height: 50px;
+}
+
+.button-71:before {
+    background-color: initial;
+    background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+    border-radius: 125px;
+    content: "";
+    height: 40%;
+    left: 4%;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    transition: all .3s;
+    width: 62%;
+}
+
+.button-71:hover {
+    box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+    transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+    .button-71 {
+        padding: 16px 48px;
+    }
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}

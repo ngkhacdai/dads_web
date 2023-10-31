@@ -1,0 +1,127 @@
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+
+main {
+    width: 100%;
+    padding: 0px 50px;
+    background-color: #F7F6F6;
+}
+
+
+.sidebar-container {
+    width: 20%;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.sidebar-logo {
+    width: 70%;
+    margin: 5% 10%;
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px 0px 40px 25px;
+    text-decoration: none;
+    height: 40px;
+    color: black;
+    margin-top: 10px;
+}
+
+.sidebar-label {
+    margin-left: 30px;
+}
+
+.sidebar-label:hover {
+    color: lightskyblue;
+    font-weight: 500;
+}
+
+
+.sidebar-icon img {
+    width: 25px;
+    height: 25px;
+}
+
+.active {
+    background: lightskyblue;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+
+}
+
+.active .sidebar-icon img {
+    filter: brightness(0) invert(1);
+}
+
+.sidebar-account {
+    max-height: 60px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: #777777 solid 1px;
+    background-color: #777777;
+    border-radius: 5px;
+}
+
+.sidebar-account p {
+    margin-top: 13px;
+    font-size: 18px;
+    color: white;
+}
+
+.sidebar-account .avatar {
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+
+}
+
+.sidebar-account:hover {
+    background-color: burlywood;
+}
+
+.sidebar-account-name {
+    font-size: 0.8em;
+    color: black;
+    margin-top: 5px;
+
+}
+
+.sidebar-account-email {
+    color: #777777;
+    font-size: 0.7em;
+    margin-top: -10px;
+}
+
+@media (max-width:739px) {
+    .sidebar-label {
+        display: none;
+    }
+
+    .sidebar-item {
+        margin: 0px 0px 30px 0px;
+    }
+
+    .sidebar-icon img {
+        margin-left: 100%;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+
+}
