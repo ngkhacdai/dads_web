@@ -8,6 +8,7 @@ import Account from "./pages/Account"
 import Product from "./pages/Product"
 import Order from "./pages/Order"
 import Category from "./pages/Category";
+import Blog from "./pages/Blog";
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   return (
@@ -32,6 +33,10 @@ function App() {
         <Route
           path='/categorys'
           element={token ? <SideBar><Category /></SideBar> : <Navigate to="/login" />}
+        />
+        <Route
+          path='/blogs'
+          element={token ? <SideBar><Blog /></SideBar> : <Navigate to="/login" />}
         />
         <Route path='/login' element={<Login setToken={setToken} />} />
       </Routes>

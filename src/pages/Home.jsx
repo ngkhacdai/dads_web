@@ -3,14 +3,47 @@ import '../styles/Home.css'
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
 
-// import ItemHome from '../items/ItemHome.js'
-// import PagingationProduct from '../components/PagingationProduct'
 const Home = () => {
+    const [isLoading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [account, setAccount] = useState(0)
     const [products, setProducts] = useState(0)
     const [bills, setBills] = useState(0)
+    const currentYear = new Date().getFullYear();
+    const startYear = 2020;
+    const years = [0];
+    const [selectedYear, setSelectedYear] = useState(0);
+    const [totalYear, setTotalYear] = useState(0);
+    for (let year = currentYear; year >= startYear; year--) {
+        years.push(year);
+    }
+
+    const handleChange = (event) => {
+        const Year = parseInt(event.target.value, 10);
+        setSelectedYear(Year);
+        if (Year === 0) {
+            getData()
+        } else {
+            getThongKe(Year)
+        }
+    };
+    const getThongKe = (Year) => {
+        setLoading(true)
+        const form = {
+            year: Year
+        }
+        axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/thongke', form, {
+            headers: {
+                'token': localStorage.getItem('token')
+            }
+        }).then((res) => {
+            setBills(res.data.orderCount)
+            setTotalYear(res.data.total)
+            setLoading(false)
+        })
+    }
     const getData = () => {
+        setLoading(true)
         axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/home', {
             headers: {
                 'token': localStorage.getItem('token')
@@ -20,6 +53,8 @@ const Home = () => {
             setAccount(res.data.countUser)
             setProducts(res.data.countProduct)
             setBills(res.data.countOrder)
+            setTotalYear(res.data.total)
+            setLoading(false)
         })
     }
     useEffect(() => {
@@ -54,11 +89,28 @@ const Home = () => {
             title: 'Bills',
             statistical: bills
         },
+        {
+            background: '#D2B48C',
+            icon: 'assets/total.png',
+            title: 'Tổng doanh thu',
+            statistical: totalYear
+        },
     ]
-
+    if (isLoading) {
+        return <div>...Loading</div>
+    }
     return (
         <>
             <p className='title-home'>Trang chủ</p>
+            <div>
+                <select value={selectedYear} onChange={handleChange}>
+                    {years.map((year) => (
+                        <option key={year} value={year}>
+                            {year === 0 ? "Select All" : year}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <div className="statistical">
                 <p className="title-block">Statistical</p>
                 <div className="item-statistical">

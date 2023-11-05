@@ -31,6 +31,11 @@ const SideBar = ({ children }) => {
             name: "Loại sản phẩm",
             icon: 'assets/category.png'
         },
+        {
+            path: '/blogs',
+            name: "Blog",
+            icon: 'assets/blogging.png'
+        },
     ]
     const logout = () => {
         localStorage.setItem('token', '')
