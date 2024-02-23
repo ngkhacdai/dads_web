@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "../styles/AddCategory.css"
 import axios from "axios";
+import { localAPI } from "../api";
 
 const AddCategory = ({ onShow, getData }) => {
     const [namecategory, setNameCategory] = useState('');
@@ -8,7 +9,7 @@ const AddCategory = ({ onShow, getData }) => {
         const form = {
             name: namecategory
         }
-        axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/addcategory', form, {
+        axios.post(localAPI + '/category/addcategory', form, {
             headers: {
                 'token': localStorage.getItem('token')
             }

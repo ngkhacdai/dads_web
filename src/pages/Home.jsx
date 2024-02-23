@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../styles/Home.css'
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
+import { imageAPI, localAPI } from '../api';
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true)
@@ -32,7 +33,7 @@ const Home = () => {
         const form = {
             year: Year
         }
-        axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/thongke', form, {
+        axios.post(localAPI + '/admin/thongke', form, {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -44,7 +45,7 @@ const Home = () => {
     }
     const getData = () => {
         setLoading(true)
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/home', {
+        axios.get(localAPI + '/admin/home', {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -61,7 +62,7 @@ const Home = () => {
         getData();
     }, [])
     const columns = [
-        { name: 'Image', selector: (row) => <img alt='' style={{ width: "100px", height: "70px" }} src={`data:${row.image.contentType};base64,${row.image.data}`} /> },
+        { name: 'Image', selector: (row) => <img alt='' style={{ width: "100px", height: "70px" }} crossorigin="anonymous" src={`${imageAPI}/${row.image}`} /> },
         { name: 'Tên sản phẩm', selector: (row) => row.name },
         { name: 'Mô tả', selector: (row) => row.description },
         { name: 'Giá', selector: (row) => row.price },

@@ -3,24 +3,28 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import PagingationProduct from '../components/PagingationProduct';
 import AddProduct from '../components/AddProduct';
+import { localAPI } from '../api';
 
 
 const Product = () => {
     const [data, setData] = useState([]);
     const [checkAddProduct, setCheckAddProduct] = useState(false);
     const [loading, setLoading] = useState(true);
-    const urlDelete = 'https://foodapp-7o77.onrender.com/v1/api/admin/deleteproduct';
+    const urlDelete = localAPI + '/product/deleteproduct';
     useEffect(() => {
         setDataProduct();
 
     }, [])
 
     const setDataProduct = async () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getallproduct', {
+        axios.get(localAPI + '/product/getallproduct', {
             headers: {
                 'token': localStorage.getItem('token')
             }
-        }).then(res => setData(res.data))
+        }).then(res => {
+            setData(res.data)
+        }
+        )
 
         setLoading(false);
     }

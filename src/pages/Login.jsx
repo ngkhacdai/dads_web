@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { localAPI } from "../api";
 export default function Login({ setToken }) {
     const [user_email, setUserEmail] = useState('');
     const [user_password, setPassword] = useState('');
@@ -57,7 +58,7 @@ export default function Login({ setToken }) {
 
 async function loginUser(credentials) {
     //sửa đổi link cho phù hợp
-    return axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/login', credentials)
+    return axios.post(localAPI + '/access/login', credentials)
 }
 
 Login.propTypes = {

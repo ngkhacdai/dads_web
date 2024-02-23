@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../styles/Pagnigation.css'
 import axios from 'axios';
 import EditProduct from './EditProduct';
+import { localAPI, imageAPI } from '../api';
 const PagingationProduct = ({ data, columns, url, del }) => {
     const [edit, setEdit] = useState(false);
     const [saveData, setSaveData] = useState([]);
@@ -69,7 +70,7 @@ const PagingationProduct = ({ data, columns, url, del }) => {
     const showConfirm = async (_id, name) => {
         const result = window.confirm('Do you want to delete ' + name + '?');
         if (result) {
-            await axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/deleteproduct', { _id }, {
+            await axios.post(localAPI + '/product/deleteproduct', { _id }, {
                 headers: {
                     'token': localStorage.getItem('token')
                 }
@@ -108,7 +109,8 @@ const PagingationProduct = ({ data, columns, url, del }) => {
                                         <td key={column.key} className={column.className}>
                                             {column.key === 'image' ? (
                                                 <img
-                                                    src={`data:${row.image.contentType};base64,${row.image.data}`}
+                                                    crossorigin="anonymous"
+                                                    src={`${imageAPI}/${row.image}`}
                                                     alt="Product"
                                                     style={{ width: "150px", height: "100px" }}
                                                 />

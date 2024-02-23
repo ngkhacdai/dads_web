@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import "../styles/OrderDetail.css"
+import { imageAPI, localAPI } from "../api";
 
 const DialogOrder = ({ _id, onChange }) => {
     const [orderDetail, setOrderDetail] = useState([])
@@ -10,31 +11,33 @@ const DialogOrder = ({ _id, onChange }) => {
         '_id': _id
     }
     useEffect(() => {
+        const getOrderDetail = () => {
+            axios.post(localAPI + '/order/getorderdetail', form, {
+                headers: {
+                    'token': localStorage.getItem('token')
+                }
+            }).then((res) => {
+                setOrderDetail(res.data)
+                setLoad(true)
+                console.log(res.data);
+            })
+        }
         getOrderDetail()
     }, [])
 
-    const getOrderDetail = () => {
 
-        axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/getorderdetail', form, {
-            headers: {
-                'token': localStorage.getItem('token')
-            }
-        }).then((res) => {
-            setOrderDetail(res.data)
-            setLoad(true)
-            console.log(res.data);
-        })
-    }
     const columns = [
         { name: '#', selector: (row, index) => index + 1 },
-        { name: 'Image', selector: (row) => <img alt='' style={{ width: "100px", height: "70px" }} src={`data:${row.product.image.contentType};base64,${row.product.image.data}`} /> },
+        {
+            name: 'Image', selector: (row) => <img alt='' style={{ width: "100px", height: "70px" }} crossorigin="anonymous" src={`${imageAPI}/${row.product.image}`} />
+        },
         { name: 'Tên sản phẩm', selector: (row) => row.product.name },
         { name: 'Giá sản phẩm', selector: (row) => row.product.price },
         { name: 'Số lượng mua', selector: (row) => row.quantity },
         { name: 'Tổng tiền sản phẩm', selector: (row) => row.price },
     ]
     const giaohang = async () => {
-        await axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/giaohang', form, {
+        await axios.post(localAPI + '/order/giaohang', form, {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -42,7 +45,7 @@ const DialogOrder = ({ _id, onChange }) => {
         onChange();
     }
     const huydonhang = async () => {
-        await axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/huydonhang', form, {
+        await axios.post(localAPI + '/order/huydonhang', form, {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -50,7 +53,7 @@ const DialogOrder = ({ _id, onChange }) => {
         onChange();
     }
     const checkStatusOrder = () => {
-        if (orderDetail.status === 'Chờ xác nhận') {
+        if (orderDetail.order.status === 'Chờ xác nhận') {
             return (
                 <>
                     <button onClick={() => giaohang()} className="btn btn-primary mt-2 w-100">
@@ -74,17 +77,17 @@ const DialogOrder = ({ _id, onChange }) => {
                 <img src={require('../assets/back.jpg')} alt="" style={{ width: "40px", height: "30px" }} />
             </button>
             <div className="user-order">
-                <p>Tên người mua: {orderDetail.user.username}</p>
-                <p>Địa chỉ: {orderDetail.user.address}</p>
-                <p>Số điện thoại: 0{orderDetail.user.phone}</p>
+                <p>Tên người mua: {orderDetail.order.user.username}</p>
+                <p>Địa chỉ: {orderDetail.order.user.address}</p>
+                <p>Số điện thoại: 0{orderDetail.order.user.phone}</p>
             </div>
             <div className="product-order">
                 <DataTable
-                    data={orderDetail.products}
+                    data={orderDetail.order.products}
                     columns={columns}
                 />
             </div>
-            <div className="d-flex flex-row-reverse mt-4 fw-bold total">Tổng tiền: {orderDetail.totalPrice}đ</div>
+            <div className="d-flex flex-row-reverse mt-4 fw-bold total">Tổng tiền: {orderDetail.order.totalPrice}đ</div>
             {checkStatusOrder()}
 
         </>

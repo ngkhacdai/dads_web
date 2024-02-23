@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import AddCategory from "../components/AddCategory";
+import { localAPI } from "../api";
 
 const Category = () => {
     const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ const Category = () => {
         getCategoryData()
     }, [])
     const getCategoryData = () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getcategory', {
+        axios.get(localAPI + '/category/getcategory', {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -22,7 +23,7 @@ const Category = () => {
         }
         const result = window.confirm('Are you sure you want to delete')
         if (result) {
-            await axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/removecategory', formData, {
+            await axios.post(localAPI + '/category/removecategory', formData, {
                 headers: {
                     'token': localStorage.getItem('token')
                 }

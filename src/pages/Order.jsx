@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import DialogOrder from '../components/DialogOrder';
+import { localAPI } from '../api';
 
 const Order = () => {
     const [data, setData] = useState([]);
@@ -14,7 +15,7 @@ const Order = () => {
     }, [])
 
     const getOrderData = () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getallorder', {
+        axios.get(localAPI + '/order/getallorder', {
             headers: {
                 'token': localStorage.getItem('token')
             }

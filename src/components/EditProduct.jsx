@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { localAPI, imageAPI } from "../api";
 
 const EditProduct = ({ data, onChange, updateList }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -18,14 +19,11 @@ const EditProduct = ({ data, onChange, updateList }) => {
 
 
     useEffect(() => {
-        // When the component mounts, set the selectedImage based on the imageData.
-        if (imageData.contentType.startsWith('image/') && imageData.data) {
-            setSelectedImage(`data:${imageData.contentType};base64, ${imageData.data}`);
-        }
+        setSelectedImage(`${imageAPI}/${imageData}`);
     }, [imageData]);
 
     const getCategoryData = async () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getcategory', {
+        axios.get(localAPI + '/category/getcategory', {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -54,22 +52,33 @@ const EditProduct = ({ data, onChange, updateList }) => {
             setCategory(selectedName)
         }
     }
-    function base64toFile(fileName) {
-        const byteCharacters = atob(imageData.data);
-        const byteNumbers = new Array(byteCharacters.length);
+    // function base64toFile(fileName) {
+    //     const byteCharacters = atob(imageData.data);
+    //     const byteNumbers = new Array(byteCharacters.length);
 
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
+    //     for (let i = 0; i < byteCharacters.length; i++) {
+    //         byteNumbers[i] = byteCharacters.charCodeAt(i);
+    //     }
+
+    //     const byteArray = new Uint8Array(byteNumbers);
+    //     const blob = new Blob([byteArray]);
+
+    //     // Chuyển blob thành đối tượng File
+    //     const file = new File([blob], fileName, { type: 'image/jpeg' });
+
+    //     return file;
+    // }
+    const convertLinkToFile = async (imageUrl) => {
+        try {
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            const fileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            const file = new File([blob], fileName, { type: blob.type });
+            return file;
+        } catch (error) {
+            console.error('Error converting image to file:', error);
         }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray]);
-
-        // Chuyển blob thành đối tượng File
-        const file = new File([blob], fileName, { type: 'image/jpeg' }); // Thay đổi 'image/jpeg' nếu định dạng khác
-
-        return file;
-    }
+    };
     const addProductApi = async () => {
         const formData = new FormData();
         formData.append('_id', data._id)
@@ -79,21 +88,31 @@ const EditProduct = ({ data, onChange, updateList }) => {
         formData.append('category', category)
 
         if (!checkSlectedImage) {
-            formData.append('image', base64toFile('image.jpeg'))
-
+            try {
+                const defaultImageFile = await convertLinkToFile('image.jpg');
+                formData.append('image', defaultImageFile);
+            } catch (error) {
+                console.error('Error adding default image:', error);
+                return; // Abort if there's an error with the default image
+            }
         } else {
-            formData.append('image', image)
+            formData.append('image', image);
         }
         formData.append('stockQuantity', stockQuantity)
-        await axios.put('https://foodapp-7o77.onrender.com/v1/api/admin/updateproduct', formData, {
-            headers: {
-                "content-type": "multipart/form-data",
-                'token': localStorage.getItem('token')
-            }
-        })
-        updateList();
-        onChange();
+        try {
+            await axios.put(localAPI + '/product/updateproduct', formData, {
+                headers: {
+                    "content-type": "multipart/form-data",
+                    'token': localStorage.getItem('token')
+                }
+            });
+            updateList();
+            onChange();
+        } catch (error) {
+            console.error('Error updating product:', error);
+        }
     }
+
     return (
         <>
             <div className="tiltle_input_addproduct">
@@ -131,6 +150,7 @@ const EditProduct = ({ data, onChange, updateList }) => {
                     <img
                         src={selectedImage}
                         alt="SelectedImage"
+                        crossorigin="anonymous"
                         style={{ maxWidth: "150px", maxHeight: "100px" }}
                     />
                 )}

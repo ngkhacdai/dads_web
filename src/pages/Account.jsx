@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import '../styles/Account.css'
 import { useState } from 'react'
 import axios from 'axios';
+import { localAPI } from '../api';
 const Account = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const Account = () => {
 
     }, [])
     const setDataAccount = async () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getalluser', {
+        axios.get(localAPI + '/admin/getalluser', {
             headers: {
                 'token': localStorage.getItem('token')
             }

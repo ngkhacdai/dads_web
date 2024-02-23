@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, { useState } from "react"
+import { localAPI } from "../api"
 
 const AddBlog = ({ onChange }) => {
     const [title, setTitle] = useState('')
@@ -11,7 +12,7 @@ const AddBlog = ({ onChange }) => {
         const form = {
             title, content
         }
-        axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/createblog', form, {
+        axios.post(localAPI + '/admin/createblog', form, {
             headers: {
                 'token': localStorage.getItem('token')
             }

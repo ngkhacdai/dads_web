@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import DataTable from "react-data-table-component"
 import axios from "axios"
 import AddBlog from "../components/AddBlog"
+import { localAPI } from "../api"
 const Blog = () => {
     const [data, setData] = useState([])
     const [checkAddBlog, setCheckAddBlog] = useState(false)
@@ -10,7 +11,7 @@ const Blog = () => {
         getData()
     }, [])
     const getData = () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getallblog', {
+        axios.get(localAPI + '/blog/getallblog', {
             headers: {
                 'token': localStorage.getItem('token')
             }

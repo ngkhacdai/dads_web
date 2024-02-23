@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { localAPI } from "../api";
 
 const AddProduct = ({ onChange, updateList }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -14,7 +15,7 @@ const AddProduct = ({ onChange, updateList }) => {
         getCategoryData()
     }, [])
     const getCategoryData = async () => {
-        axios.get('https://foodapp-7o77.onrender.com/v1/api/admin/getcategory', {
+        axios.get(localAPI + '/category/getcategory', {
             headers: {
                 'token': localStorage.getItem('token')
             }
@@ -45,7 +46,7 @@ const AddProduct = ({ onChange, updateList }) => {
         formData.append('category', category)
         formData.append('image', image)
         formData.append('stockQuantity', stockQuantity)
-        await axios.post('https://foodapp-7o77.onrender.com/v1/api/admin/addproduct', formData, {
+        await axios.post(localAPI + '/product/addproduct', formData, {
             headers: {
                 'token': localStorage.getItem('token')
             }
